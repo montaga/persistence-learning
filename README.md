@@ -62,7 +62,7 @@ configure the build process, e.g.,
 cd code/dipha-pss
 mkdir build
 cd build
-cmake ...
+cmake ..
 make
 ```
 
