@@ -270,6 +270,7 @@ the MATLAB interface to libsvm (see the libsvm documentation on how to compile
 the MATLAB interface).
 
 ```matlab
+kernel = load('/tmp/kernel.txt');
 labels = [ones(10,1);ones(10,1)*2]; % Create labels for training
 pos = randsample(1:20,15); % Indices of diagrams used for training
 neg = setdiff(1:20,pos);   % Indices of diagrams used for testing
