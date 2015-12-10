@@ -251,7 +251,7 @@ In ```/tmp/``` we create such a list via
 
 ```bash
 cd /tmp/
-find . -name 'dmat*.pd' > diagrams.list
+find . -name 'dmat*.pd' | sort > diagrams.list
 ```
 Finally, we execute ```diagram_distance``` and compute features up
 to dimension two (set via ```---dim```). In our example, we compute
@@ -260,7 +260,7 @@ time parameter of the kernel (set via ```--time```) to 0.1.
 
 
 ```bash
-cd code/dipha-pss/build/bin
+cd code/dipha-pss/build
 ./diagram_distance --inner_product --time 0.1 --dim 1 /tmp/diagrams.list > /tmp/kernel.txt
 ```
 
@@ -272,8 +272,8 @@ the MATLAB interface).
 ```matlab
 kernel = load('/tmp/kernel.txt');
 labels = [ones(10,1);ones(10,1)*2]; % Create labels for training
-pos = randsample(1:20,15); % Indices of diagrams used for training
-neg = setdiff(1:20,pos);   % Indices of diagrams used for testing
+pos = sort(randperm(20)(1:15));     % Indices of diagrams used for training
+neg = setdiff(1:20,pos);            % Indices of diagrams used for testing
 model = svmtrain(labels(pos),[(1:length(pos))' kernel(pos,pos)], '-t 4 -c 1');
 [pred,acc,~] = svmpredict(labels(neg), [(1:5)' kernel(neg,pos)], model);
 disp(acc);
